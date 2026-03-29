@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EngagePro — Build Your Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:     #0A0E2A;
+    --navy-mid: #111638;
+    --navy-card:#161C42;
+    --navy-line:#1E2650;
+    --green:    #00E676;
+    --green-dim:#00B85A;
+    --green-bg: rgba(0,230,118,0.08);
+    --blue:     #3D6EFF;
+    --blue-dim: rgba(61,110,255,0.15);
+    --white:    #FFFFFF;
+    --off-white:#E8EBF8;
+    --muted:    #8B90B8;
+    --muted2:   #545980;
+    --warn:     #FFB547;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--off-white);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HEADER ─── */
+  .page-header {
+    border-bottom: 1px solid var(--navy-line);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .logo span {
+    color: var(--green);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--green-bg);
+    border: 1px solid rgba(0,230,118,0.3);
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .header-note {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ─── LAYOUT ─── */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 0;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+    align-items: start;
+  }
+
+  /* ─── LEFT COLUMN ─── */
+  .configurator {
+    padding: 40px 48px 40px 0;
+    border-right: 1px solid var(--navy-line);
+  }
+
+  .page-title {
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .page-subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 520px;
+  }
+
+  /* ─── FOUNDATION CARD ─── */
+  .foundation-card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-line);
+    border-left: 3px solid var(--green);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .foundation-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 100%;
+    background: radial-gradient(ellipse at top right, rgba(0,230,118,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .foundation-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .foundation-label::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .foundation-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 16px;
+  }
+  .foundation-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+  .foundation-desc {
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 400px;
+  }
+  .foundation-price {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .foundation-price .amount {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: -1px;
+  }
+  .foundation-price .period {
+    font-size: 13px;
+    color: var(--muted);
+    display: block;
+  }
+  .foundation-price .setup-note {
+    font-size: 12px;
+    color: var(--muted2);
+    margin-top: 4px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--off-white);
+  }
+  .feature-item::before {
+    content: '✓';
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .always-included {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--navy-line);
+    font-size: 12px;
+    color: var(--muted2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .always-included svg { flex-shrink: 0; }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header {
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .section-desc {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ─── ADD-ON SECTIONS ─── */
+  .addon-section {
+    margin-bottom: 40px;
+  }
+
+  /* ─── ADDON CARDS ─── */
+  .addon-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .addon-grid.single-col {
+    grid-template-columns: 1fr;
+  }
+
+  .addon-card {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .addon-card:hover {
+    border-color: var(--muted2);
+    transform: translateY(-1px);
+  }
+  .addon-card.selected {
+    border-color: var(--green);
+    background: rgba(0,230,118,0.06);
+  }
+  .addon-card.selected .addon-check {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .addon-card.selected .addon-check::after {
+    opacity: 1;
+  }
+  .addon-card.radio-card.selected {
+    border-color: var(--blue);
+    background: rgba(61,110,255,0.08);
+  }
+  .addon-card.radio-card.selected .addon-check {
+    background: var(--blue);
+    border-color: var(--blue);
+    border-radius: 50%;
+  }
+
+  .addon-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .addon-check {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--muted2);
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: background 0.15s, border-color 0.15s;
+    position: relative;
+  }
+  .addon-check::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 10px; height: 7px;
+    border-left: 2px solid var(--navy);
+    border-bottom: 2px solid var(--navy);
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition: opacity 0.12s;
+  }
+  .addon-card.radio-card .addon-check {
+    border-radius: 50%;
+  }
+  .addon-card.radio-card .addon-check::after {
+    top: 4px; left: 4px;
+    width: 8px; height: 8px;
+    border: none;
+    background: var(--navy);
+    border-radius: 50%;
+    transform: none;
+  }
+
+  .addon-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 4px;
+    flex: 1;
+  }
+  .addon-price-block {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .addon-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    white-space: nowrap;
+  }
+  .addon-price-type {
+    font-size: 11px;
+    color: var(--muted);
+    display: block;
+  }
+  .addon-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .addon-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .badge-ai    { background: rgba(61,110,255,0.18); color: #7BA3FF; }
+  .badge-phone { background: rgba(255,181,71,0.15); color: var(--warn); }
+  .badge-once  { background: rgba(139,144,184,0.15); color: var(--muted); }
+  .badge-req   { background: rgba(0,230,118,0.12); color: var(--green-dim); }
+
+  /* Tier selector for telephone */
+  .tier-selector {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--navy-line);
+  }
+  .tier-selector-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .tier-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .tier-btn {
+    background: var(--navy);
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius-sm);
+    padding: 10px 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: center;
+  }
+  .tier-btn:hover { border-color: var(--muted2); }
+  .tier-btn.active {
+    border-color: var(--warn);
+    background: rgba(255,181,71,0.08);
+  }
+  .tier-btn-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--off-white);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .tier-btn-calls {
+    font-size: 10px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .tier-btn-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--warn);
+    font-family: 'DM Mono', monospace;
+  }
+  .tier-btn.active .tier-btn-price { color: var(--warn); }
+
+  /* AI tier selector */
+  .ai-tier-selector {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--navy-line);
+  }
+  .ai-tier-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .ai-tier-btn {
+    background: var(--navy);
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius-sm);
+    padding: 8px 6px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    text-align: center;
+  }
+  .ai-tier-btn:hover { border-color: var(--muted2); }
+  .ai-tier-btn.active {
+    border-color: var(--blue);
+    background: rgba(61,110,255,0.1);
+  }
+  .ai-tier-btn-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--off-white);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .ai-tier-btn-calls {
+    font-size: 10px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .ai-tier-btn-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #7BA3FF;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ─── RIGHT COLUMN: SUMMARY ─── */
+  .summary-panel {
+    padding: 40px 0 40px 36px;
+    position: sticky;
+    top: 73px;
+    max-height: calc(100vh - 73px);
+    overflow-y: auto;
+  }
+  .summary-title {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .summary-section {
+    margin-bottom: 20px;
+  }
+  .summary-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--navy-line);
+  }
+
+  .summary-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 6px 0;
+    gap: 12px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(30,38,80,0.5);
+  }
+  .summary-line:last-child { border-bottom: none; }
+  .summary-line-name {
+    color: var(--off-white);
+    flex: 1;
+  }
+  .summary-line-name.foundation {
+    color: var(--green);
+    font-weight: 500;
+  }
+  .summary-line-price {
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .summary-line .remove-btn {
+    background: none;
+    border: none;
+    color: var(--muted2);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 0 0 6px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.12s;
+  }
+  .summary-line .remove-btn:hover { color: #FF6B6B; }
+
+  .summary-empty {
+    font-size: 13px;
+    color: var(--muted2);
+    font-style: italic;
+    padding: 6px 0;
+  }
+
+  .total-block {
+    background: var(--navy-card);
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    margin-top: 16px;
+  }
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+  .total-row:last-child { margin-bottom: 0; }
+  .total-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .total-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+  .total-amount.green { color: var(--green); }
+  .total-divider {
+    height: 1px;
+    background: var(--navy-line);
+    margin: 10px 0;
+  }
+  .total-note {
+    font-size: 11px;
+    color: var(--muted2);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .cta-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--green);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    margin-top: 14px;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-decoration: none;
+  }
+  .cta-btn:hover { background: #00C864; transform: translateY(-1px); }
+  .cta-btn:active { transform: translateY(0); }
+
+  .demo-link {
+    display: block;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 10px;
+    cursor: pointer;
+    transition: color 0.12s;
+  }
+  .demo-link:hover { color: var(--off-white); }
+
+  .divider {
+    height: 1px;
+    background: var(--navy-line);
+    margin: 40px 0;
+  }
+
+  /* Tooltip */
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border: 1px solid var(--muted2);
+    border-radius: 50%;
+    font-size: 9px;
+    color: var(--muted);
+    cursor: help;
+    flex-shrink: 0;
+    margin-left: 4px;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* Variable cost note */
+  .variable-note {
+    background: rgba(255,181,71,0.08);
+    border: 1px solid rgba(255,181,71,0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #D4964A;
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+  .variable-note strong { color: var(--warn); font-weight: 500; }
+
+  /* POA note */
+  .poa-note {
+    background: rgba(139,144,184,0.08);
+    border: 1px solid var(--navy-line);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+
+  /* scrollbar */
+  .summary-panel::-webkit-scrollbar { width: 4px; }
+  .summary-panel::-webkit-scrollbar-track { background: transparent; }
+  .summary-panel::-webkit-scrollbar-thumb { background: var(--navy-line); border-radius: 2px; }
+
+  @media (max-width: 960px) {
+    .layout { grid-template-columns: 1fr; padding: 0 24px 80px; }
+    .configurator { border-right: none; padding-right: 0; }
+    .summary-panel { position: relative; top: 0; max-height: none; padding-left: 0; border-top: 1px solid var(--navy-line); }
+    .addon-grid { grid-template-columns: 1fr; }
+    .page-header { padding: 16px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="logo">Engage<span>Pro</span></div>
+  <div class="header-note">All prices in AUD · GST not included</div>
+</header>
+
+<div class="layout">
+
+  <!-- LEFT: CONFIGURATOR -->
+  <div class="configurator">
+    <h1 class="page-title">Build your plan.</h1>
+    <p class="page-subtitle">Start with the Essential foundation — then add the capabilities your business needs. Your total updates in real time.</p>
+
+    <!-- FOUNDATION: ESSENTIAL -->
+    <div class="foundation-card">
+      <div class="foundation-label">Foundation — always included</div>
+      <div class="foundation-top">
+        <div>
+          <div class="foundation-name">Engage Essential</div>
+          <div class="foundation-desc">Real-time human-led live chat. The foundation every EngagePro plan is built on — capture every lead the moment they land.</div>
+        </div>
+        <div class="foundation-price">
+          <span class="amount">$597</span>
+          <span class="period">/month</span>
+          <div class="setup-note">$1,499 one-off setup</div>
+        </div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">Real-time live chat engagement</div>
+        <div class="feature-item">Immediate response to visitors</div>
+        <div class="feature-item">Lead capture before bounce</div>
+        <div class="feature-item">Chat transcripts</div>
+        <div class="feature-item">2 operator seats included</div>
+        <div class="feature-item">Smart CRM lead routing</div>
+        <div class="feature-item">Reporting dashboard</div>
+        <div class="feature-item">Business hours coverage</div>
+      </div>
+      <div class="always-included">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1a5.5 5.5 0 100 11A5.5 5.5 0 006.5 1zm0 2.5a.75.75 0 110 1.5.75.75 0 010-1.5zm0 3a.75.75 0 01.75.75v2.5a.75.75 0 01-1.5 0v-2.5A.75.75 0 016.5 6.5z" fill="#545980"/></svg>
+        This package is the foundation of every plan and is always included. The items below are added on top.
+      </div>
+    </div>
+
+    <!-- SECTION 1: AI ASSISTANT UPGRADE -->
+    <div class="addon-section">
+      <div class="section-header">
+        <div class="section-title">AI assistant upgrade</div>
+        <div class="section-desc">Add an AI layer that works when your team can't — after hours, at scale, instantly.</div>
+      </div>
+      <div class="addon-grid">
+
+        <div class="addon-card" id="card-ai-assist" onclick="toggleAddon('ai-assist', this)">
+          <div class="addon-badge badge-ai">AI Chat</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">AI Chat Assistant</div>
+              <div class="addon-desc">AI-powered engagement after hours and during peak overflow. Handles FAQs, qualifies leads, and routes them into your CRM automatically — 24/7.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-ai-assist"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;display:flex;align-items:baseline;gap:6px;">
+            <span class="addon-price" id="price-ai-assist">$500</span>
+            <span class="addon-price-type">/month · API tier based</span>
+          </div>
+          <div class="ai-tier-selector" id="ai-tier-selector" style="display:none;">
+            <div class="tier-selector-label">Select API usage tier</div>
+            <div class="ai-tier-options">
+              <div class="ai-tier-btn active" onclick="selectAiTier(event, 'starter', 500, '0–5K calls')">
+                <span class="ai-tier-btn-name">Starter</span>
+                <span class="ai-tier-btn-calls">0–5K calls/mo</span>
+                <span class="ai-tier-btn-price">$500</span>
+              </div>
+              <div class="ai-tier-btn" onclick="selectAiTier(event, 'growth', 1000, '5–20K calls')">
+                <span class="ai-tier-btn-name">Growth</span>
+                <span class="ai-tier-btn-calls">5–20K calls/mo</span>
+                <span class="ai-tier-btn-price">$1,000</span>
+              </div>
+              <div class="ai-tier-btn" onclick="selectAiTier(event, 'scale', 2000, '20–100K calls')">
+                <span class="ai-tier-btn-name">Scale</span>
+                <span class="ai-tier-btn-calls">20–100K calls/mo</span>
+                <span class="ai-tier-btn-price">$2,000</span>
+              </div>
+              <div class="ai-tier-btn" onclick="selectAiTier(event, 'enterprise', 7500, '100K–500K calls')">
+                <span class="ai-tier-btn-name">Enterprise</span>
+                <span class="ai-tier-btn-calls">100–500K calls/mo</span>
+                <span class="ai-tier-btn-price">$7,500</span>
+              </div>
+            </div>
+            <div class="poa-note" style="margin-top:8px;">Includes back-end CRM integration at Growth tier and above. 500K+ calls/mo — contact us for custom pricing.</div>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-whatsapp" onclick="toggleAddon('whatsapp', this)">
+          <div class="addon-badge badge-ai">Messaging</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">WhatsApp Business</div>
+              <div class="addon-desc">Extend engagement beyond your website. Capture and continue conversations through WhatsApp — integrated with your existing EngagePro setup.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-whatsapp"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <div class="addon-price">$175</div>
+            <span class="addon-price-type">/month · mid-range estimate</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 2: TELEPHONE AI -->
+    <div class="addon-section">
+      <div class="section-header">
+        <div class="section-title">Telephone AI assistant</div>
+        <div class="section-desc">Handle inbound calls with a scripted AI voice agent — so no enquiry ever goes to voicemail. Outbound calling quoted separately.</div>
+      </div>
+      <div class="addon-grid single-col">
+
+        <div class="addon-card" id="card-telephone" onclick="toggleAddon('telephone', this)">
+          <div class="addon-badge badge-phone">Voice AI</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">AI Telephone Assistant (Inbound)</div>
+              <div class="addon-desc">A scripted voice AI that answers inbound calls, handles FAQs, and captures leads 24/7. Includes a $1,000 one-off setup. Call volume tier selected below.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-telephone"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;display:flex;align-items:baseline;gap:6px;">
+            <span class="addon-price" id="price-telephone">$549</span>
+            <span class="addon-price-type">/month · API tier based</span>
+          </div>
+          <div class="tier-selector" id="tel-tier-selector" style="display:none;">
+            <div class="tier-selector-label">Select call volume tier</div>
+            <div class="tier-options">
+              <div class="tier-btn active" onclick="selectTelTier(event, 'starter', 549, 'Up to 1,000 calls')">
+                <span class="tier-btn-name">Starter</span>
+                <span class="tier-btn-calls">Up to 1,000 calls/mo</span>
+                <span class="tier-btn-price">$549</span>
+              </div>
+              <div class="tier-btn" onclick="selectTelTier(event, 'growth', 997, 'Up to 5,000 calls')">
+                <span class="tier-btn-name">Growth</span>
+                <span class="tier-btn-calls">Up to 5,000 calls/mo</span>
+                <span class="tier-btn-price">$997</span>
+              </div>
+              <div class="tier-btn" onclick="selectTelTier(event, 'enterprise', 2197, 'Up to 15,000 calls')">
+                <span class="tier-btn-name">Enterprise</span>
+                <span class="tier-btn-calls">Up to 15,000 calls/mo</span>
+                <span class="tier-btn-price">$2,197</span>
+              </div>
+            </div>
+            <div class="variable-note">
+              <strong>Variable call costs</strong> are billed separately based on actual minutes used. Approx. $0.24–$0.77 per 2-min call · $0.77–$1.11 per 3-min call · $1.11–$1.82 per 5-min call. Outbound calls require a separate setup and are quoted per use case.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 3: INTEGRATIONS & ONGOING ADD-ONS -->
+    <div class="addon-section">
+      <div class="section-header">
+        <div class="section-title">Integrations & ongoing add-ons</div>
+        <div class="section-desc">Monthly add-ons that extend the platform's capability once you're live.</div>
+      </div>
+      <div class="addon-grid">
+
+        <div class="addon-card" id="card-knowledgebase" onclick="toggleAddon('knowledgebase', this)">
+          <div class="addon-badge badge-ai">AI</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Knowledge Base Management</div>
+              <div class="addon-desc">Ongoing management and updating of your AI's knowledge base — keeping responses accurate as your products, services, and FAQs evolve.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-knowledgebase"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$175</span>
+            <span class="addon-price-type">/month · mid-range</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-handoff" onclick="toggleAddon('handoff', this)">
+          <div class="addon-badge badge-ai">Workflow</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Live Agent Hand-Off</div>
+              <div class="addon-desc">Seamlessly transfer high-intent conversations from AI to a live human agent — with full context passed through so the customer never has to repeat themselves.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-handoff"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$349</span>
+            <span class="addon-price-type">/month</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-voice-assist" onclick="toggleAddon('voice-assist', this)">
+          <div class="addon-badge badge-phone">Voice</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Voice AI Assistant (Chat-to-Call)</div>
+              <div class="addon-desc">AI that can escalate a chat conversation into a voice call when the situation calls for it — bridging digital and phone engagement in one flow.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-voice-assist"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$325</span>
+            <span class="addon-price-type">/month · mid-range</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-addon-config" onclick="toggleAddon('addon-config', this)">
+          <div class="addon-badge badge-ai">Config</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Add-On Setup & Configuration</div>
+              <div class="addon-desc">Required for any new add-on activation after initial setup. Covers configuration, testing, and QA for each new capability added to your plan.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-addon-config"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$80</span>
+            <span class="addon-price-type">/month</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- SECTION 4: ONE-OFF SETUP SERVICES -->
+    <div class="addon-section">
+      <div class="section-header">
+        <div class="section-title">One-off setup services</div>
+        <div class="section-desc">Optional professional services added to your initial setup investment. Billed once.</div>
+      </div>
+      <div class="addon-grid">
+
+        <div class="addon-card" id="card-crm" onclick="toggleAddon('crm', this)">
+          <div class="addon-badge badge-once">One-Off</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">CRM Integration Setup</div>
+              <div class="addon-desc">Full integration of EngagePro with your existing CRM — so every lead captured flows directly into your sales pipeline without manual work.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-crm"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$349</span>
+            <span class="addon-price-type">once-off</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-ats" onclick="toggleAddon('ats', this)">
+          <div class="addon-badge badge-once">One-Off</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">ATS Integration Setup</div>
+              <div class="addon-desc">Connect EngagePro to your Applicant Tracking System — ideal for recruitment businesses capturing candidate enquiries directly into their talent pipeline.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-ats"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$275</span>
+            <span class="addon-price-type">once-off</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-kb-setup" onclick="toggleAddon('kb-setup', this)">
+          <div class="addon-badge badge-once">One-Off</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Knowledge Base Structuring</div>
+              <div class="addon-desc">Professional build and structuring of your AI's knowledge base from scratch — drawing on your existing content, FAQs, and product information.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-kb-setup"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$199</span>
+            <span class="addon-price-type">once-off</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-ai-training" onclick="toggleAddon('ai-training', this)">
+          <div class="addon-badge badge-once">One-Off</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Custom AI Model Training</div>
+              <div class="addon-desc">Train a bespoke AI model on your specific business, tone of voice, products, and processes — for responses that feel genuinely on-brand.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-ai-training"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">From $1,749</span>
+            <span class="addon-price-type">once-off</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-multiagent" onclick="toggleAddon('multiagent', this)">
+          <div class="addon-badge badge-once">One-Off</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Multi-Agent Configuration</div>
+              <div class="addon-desc">Set up multiple AI agents operating simultaneously — each configured for different topics, departments, or audience segments on the same platform.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-multiagent"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$349</span>
+            <span class="addon-price-type">once-off</span>
+          </div>
+        </div>
+
+        <div class="addon-card" id="card-workflow" onclick="toggleAddon('workflow', this)">
+          <div class="addon-badge badge-once">One-Off</div>
+          <div class="addon-card-top">
+            <div>
+              <div class="addon-name">Workflow Automation Build</div>
+              <div class="addon-desc">Custom automation workflows built to handle repetitive processes — from approval routing to lead assignment — so your team focuses on high-value work.</div>
+            </div>
+            <div>
+              <div class="addon-check" id="check-workflow"></div>
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span class="addon-price">$175</span>
+            <span class="addon-price-type">once-off</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="poa-note" style="margin-top:16px;">
+        Need custom development? We bill at <strong style="color:var(--off-white)">$75/hr</strong> for bespoke work outside of these packages. <span style="color:var(--muted2)">Get in touch to scope your requirements.</span>
+      </div>
+    </div>
+
+  </div><!-- end .configurator -->
+
+  <!-- RIGHT: SUMMARY PANEL -->
+  <div class="summary-panel">
+    <div class="summary-title">Your plan summary</div>
+
+    <!-- Monthly recurring -->
+    <div class="summary-section">
+      <div class="summary-section-label">Monthly recurring</div>
+      <div id="summary-monthly">
+        <div class="summary-line">
+          <span class="summary-line-name foundation">Engage Essential</span>
+          <span class="summary-line-price">$597</span>
+        </div>
+        <!-- dynamic items injected here -->
+      </div>
+    </div>
+
+    <!-- One-off -->
+    <div class="summary-section">
+      <div class="summary-section-label">One-off investment</div>
+      <div id="summary-oneoff">
+        <div class="summary-line">
+          <span class="summary-line-name foundation">Essential setup</span>
+          <span class="summary-line-price">$1,499</span>
+        </div>
+        <!-- dynamic items injected here -->
+      </div>
+    </div>
+
+    <!-- Totals -->
+    <div class="total-block">
+      <div class="total-row">
+        <span class="total-label">Monthly total</span>
+        <span class="total-amount green" id="total-monthly">$597</span>
+      </div>
+      <div class="total-divider"></div>
+      <div class="total-row">
+        <span class="total-label">One-off investment</span>
+        <span class="total-amount" id="total-oneoff">$1,499</span>
+      </div>
+      <div class="total-note">All prices in AUD. GST not included. Variable telephone call costs billed separately at actuals. Prices indicative — final quote provided on enquiry.</div>
+    </div>
+
+    <button class="cta-btn">Request a quote →</button>
+    <span class="demo-link">or book a free demo first</span>
+
+  </div>
+
+</div><!-- end .layout -->
+
+<script>
+  // ─── STATE ───
+  const state = {
+    monthly: {
+      'Engage Essential': 597
+    },
+    oneoff: {
+      'Essential setup': 1499
+    }
+  };
+
+  const addons = {
+    'ai-assist':    { type: 'monthly', label: 'AI Chat Assistant',              price: 500,  hasSetup: false },
+    'whatsapp':     { type: 'monthly', label: 'WhatsApp Business',              price: 175,  hasSetup: false },
+    'telephone':    { type: 'both',    label: 'AI Telephone (Inbound)',          price: 549,  setupPrice: 1000, setupLabel: 'Telephone AI setup' },
+    'knowledgebase':{ type: 'monthly', label: 'Knowledge Base Mgmt',            price: 175,  hasSetup: false },
+    'handoff':      { type: 'monthly', label: 'Live Agent Hand-Off',            price: 349,  hasSetup: false },
+    'voice-assist': { type: 'monthly', label: 'Voice AI Assistant',             price: 325,  hasSetup: false },
+    'addon-config': { type: 'monthly', label: 'Add-On Config',                  price: 80,   hasSetup: false },
+    'crm':          { type: 'oneoff',  label: 'CRM Integration Setup',          price: 349 },
+    'ats':          { type: 'oneoff',  label: 'ATS Integration Setup',          price: 275 },
+    'kb-setup':     { type: 'oneoff',  label: 'Knowledge Base Structuring',     price: 199 },
+    'ai-training':  { type: 'oneoff',  label: 'Custom AI Model Training',       price: 1749 },
+    'multiagent':   { type: 'oneoff',  label: 'Multi-Agent Configuration',      price: 349 },
+    'workflow':     { type: 'oneoff',  label: 'Workflow Automation Build',       price: 175 },
+  };
+
+  const selected = new Set();
+
+  function toggleAddon(id, cardEl) {
+    if (selected.has(id)) {
+      // deselect
+      selected.delete(id);
+      cardEl.classList.remove('selected');
+      const addon = addons[id];
+      if (addon.type === 'monthly' || addon.type === 'both') delete state.monthly[addon.label];
+      if (addon.type === 'oneoff'  || addon.type === 'both') delete state.oneoff[addon.label];
+      if (addon.type === 'both')                             delete state.oneoff[addon.setupLabel];
+      // hide sub-selectors
+      const tierSel = document.getElementById('ai-tier-selector');
+      const telSel  = document.getElementById('tel-tier-selector');
+      if (id === 'ai-assist' && tierSel) tierSel.style.display = 'none';
+      if (id === 'telephone' && telSel)  telSel.style.display  = 'none';
+    } else {
+      // select
+      selected.add(id);
+      cardEl.classList.add('selected');
+      const addon = addons[id];
+      if (addon.type === 'monthly') state.monthly[addon.label] = addon.price;
+      if (addon.type === 'oneoff')  state.oneoff[addon.label]  = addon.price;
+      if (addon.type === 'both') {
+        state.monthly[addon.label]    = addon.price;
+        state.oneoff[addon.setupLabel] = addon.setupPrice;
+      }
+      // show sub-selectors
+      if (id === 'ai-assist') document.getElementById('ai-tier-selector').style.display = 'block';
+      if (id === 'telephone') document.getElementById('tel-tier-selector').style.display = 'block';
+    }
+    renderSummary();
+  }
+
+  function selectAiTier(e, tierId, price, callsLabel) {
+    e.stopPropagation();
+    // update price
+    document.querySelectorAll('.ai-tier-btn').forEach(b => b.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    addons['ai-assist'].price = price;
+    document.getElementById('price-ai-assist').textContent = '$' + price.toLocaleString();
+    if (selected.has('ai-assist')) {
+      state.monthly['AI Chat Assistant'] = price;
+      renderSummary();
+    }
+  }
+
+  function selectTelTier(e, tierId, price, callsLabel) {
+    e.stopPropagation();
+    document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+    e.currentTarget.classList.add('active');
+    addons['telephone'].price = price;
+    document.getElementById('price-telephone').textContent = '$' + price.toLocaleString();
+    if (selected.has('telephone')) {
+      state.monthly['AI Telephone (Inbound)'] = price;
+      renderSummary();
+    }
+  }
+
+  function renderSummary() {
+    // monthly
+    const mContainer = document.getElementById('summary-monthly');
+    // keep foundation line
+    mContainer.innerHTML = `
+      <div class="summary-line">
+        <span class="summary-line-name foundation">Engage Essential</span>
+        <span class="summary-line-price">$597</span>
+      </div>`;
+    let monthlyTotal = 597;
+    for (const [label, price] of Object.entries(state.monthly)) {
+      if (label === 'Engage Essential') continue;
+      mContainer.innerHTML += `
+        <div class="summary-line">
+          <span class="summary-line-name">${label}</span>
+          <span class="summary-line-price">$${price.toLocaleString()}</span>
+        </div>`;
+      monthlyTotal += price;
+    }
+    if (Object.keys(state.monthly).length <= 1) {
+      mContainer.innerHTML += `<div class="summary-empty">No add-ons selected yet</div>`;
+    }
+
+    // one-off
+    const oContainer = document.getElementById('summary-oneoff');
+    oContainer.innerHTML = `
+      <div class="summary-line">
+        <span class="summary-line-name foundation">Essential setup</span>
+        <span class="summary-line-price">$1,499</span>
+      </div>`;
+    let oneoffTotal = 1499;
+    for (const [label, price] of Object.entries(state.oneoff)) {
+      if (label === 'Essential setup') continue;
+      oContainer.innerHTML += `
+        <div class="summary-line">
+          <span class="summary-line-name">${label}</span>
+          <span class="summary-line-price">$${price.toLocaleString()}</span>
+        </div>`;
+      oneoffTotal += price;
+    }
+    const oneoffItems = Object.keys(state.oneoff).length;
+    // telephone setup
+    if (selected.has('telephone') && !state.oneoff['Telephone AI setup']) {
+      state.oneoff['Telephone AI setup'] = 1000;
+    }
+    if (oneoffItems <= 1 && !selected.has('telephone')) {
+      oContainer.innerHTML += `<div class="summary-empty">No one-off services selected</div>`;
+    }
+
+    document.getElementById('total-monthly').textContent = '$' + monthlyTotal.toLocaleString();
+    document.getElementById('total-oneoff').textContent  = '$' + oneoffTotal.toLocaleString();
+  }
+
+  renderSummary();
+</script>
+</body>
+</html>
